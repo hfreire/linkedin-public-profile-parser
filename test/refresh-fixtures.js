@@ -1,3 +1,7 @@
+/*
+ * Copyright (C) 2016, Hugo Freire <hugo@dog.ai>. All rights reserved.
+ */
+
 var fs      = require('fs');
 var Wreck   = require('wreck');
 var transform_linkedin_url = require('linkedin-canonical-url');
@@ -13,7 +17,10 @@ var urls    = [
   'https://uk.linkedin.com/in/iteles',                   // Inês
   'https://www.linkedin.com/in/nelsonic',                // This Guy
   'https://uk.linkedin.com/pub/z%C3%BCmra-kinali/2b/731/b5b', // empty profile
-  'https://uk.linkedin.com/pub/benjamin-lees/58/75/162'  //benji
+  'https://uk.linkedin.com/pub/benjamin-lees/58/75/162',  //benji
+  'https://www.linkedin.com/company/keybroker-ab',        // Keybroker company page
+  'https://www.linkedin.com/company/apple',               // Apple company page
+  'https://www.linkedin.com/company/monsanto',            // Monsanto company page
 ];
 var files   = [
   'abdi-ahmed.html',
@@ -22,7 +29,10 @@ var files   = [
   'iteles.html',
   'nelsonic.html',
   'zumra.html', // random person with empty profile. test failure.
-  'benji.html'
+  'benji.html',
+  'keybroker.html',
+  'apple.html',
+  'monsanto.html'
 ];
 
 var fetcher = require('../lib/fetcher');

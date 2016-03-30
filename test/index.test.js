@@ -1,5 +1,10 @@
+/*
+ * Copyright (C) 2016, Hugo Freire <hugo@dog.ai>. All rights reserved.
+ */
+
 var test     = require('tape');
-var lp = require('../lib/index');
+var lp = require('../lib/index').profile;
+var company = require('../lib/index').company;
 
 
 test('Force url error by not setting a url', function(t){
@@ -20,7 +25,7 @@ test('Force 404 error by supplying a mal-formed url', function(t){
 	})
 })
 
-test('Return an error if something wrong happen', function(t){
+test('Return an error if something wrong happen while parsing profile', function (t) {
 
 	var url = 'https://uk.linkedin.com/in/simonlabond';
 	var nock = require('nock');
@@ -29,6 +34,19 @@ test('Return an error if something wrong happen', function(t){
 						.reply(403,'something awful happened');
 	lp(url, function(err, data){
     t.ok(err === 'error fetcher', 'Return error fetcher');
+		t.end();
+	})
+})
+
+test('Return an error if something wrong happen while parsing company', function (t) {
+
+	var url = 'https://www.linkedin.com/compan/apple';
+	var nock = require('nock');
+	var scope = nock('https://www.linkedin.com')
+		.get('/compan/apple')
+		.reply(403, 'something awful happened');
+	company(url, function (err, data) {
+		t.ok(err === 'error fetcher', 'Return error fetcher');
 		t.end();
 	})
 })
@@ -45,6 +63,22 @@ test('Successfully Parse Elon\'s Public LinkedIn Profile Page ', function(t){
 	lp(url, function(err, data){
 	// console.log('##########', err);
     t.ok(err === null, 'No error when viewing Elon\'s Profile');
+		t.end();
+	})
+})
+
+fs = require('fs');
+var apple = fs.readFileSync('./test/fixtures/apple.html');
+nock = require('nock');
+nock('https://www.linkedin.com')
+	.get('/company/apple')
+	.reply(200, emusk);
+
+test('Successfully Parse Apple\'s LinkedIn Company page ', function (t) {
+	var url = 'https://www.linkedin.com/company/apple';
+	company(url, function (err, data) {
+		// console.log('##########', err);
+		t.ok(err === null, 'No error when viewing Apple\'s Company page');
 		t.end();
 	})
 })
