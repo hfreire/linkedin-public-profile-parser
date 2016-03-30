@@ -1,7 +1,3 @@
-/*
- * Copyright (C) 2016, Hugo Freire <hugo@dog.ai>. All rights reserved.
- */
-
 var fs      = require('fs');
 var Wreck   = require('wreck');
 var transform_linkedin_url = require('linkedin-canonical-url');

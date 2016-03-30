@@ -1,7 +1,3 @@
-/*
- * Copyright (C) 2016, Hugo Freire <hugo@dog.ai>. All rights reserved.
- */
-
 var test = require('tape');
 var fs = require('fs');
 var company = require('../lib/company');
