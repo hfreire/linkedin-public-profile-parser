@@ -9,7 +9,7 @@ test('Parse Benji\'s Public Profile Page', function(t) {
     var url = 'https://uk.linkedin.com/pub/benjamin-lees/58/75/162';
     url = transform_linkedin_url(url);
     profile(url, html, function(err, data){
-      // console.log(data);
+       console.log(data);
       t.ok(data.connections > 160, 'Benji has: '+data.connections + ' connections');
       t.ok(data.languages[0].indexOf('English') > -1, 'Benji knows '+ data.languages[0]);
       t.ok(data.current === 'Web Developer at Founders and Coders', 'Benji works at Founders & Coders C.I.C.');
