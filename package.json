@@ -33,6 +33,7 @@
   "dependencies": {
     "cheerio": "^0.20.0",
     "linkedin-canonical-url": "^1.0.5",
+    "lodash": "^4.7.0",
     "wreck": "^7.0.0"
   },
   "devDependencies": {
