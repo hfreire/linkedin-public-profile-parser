@@ -12,7 +12,7 @@ test('Parse Benji\'s Public Profile Page', function(t) {
        // console.log(data);
       t.ok(data.connections > 160, 'Benji has: '+data.connections + ' connections');
       t.ok(data.languages[0].indexOf('English') > -1, 'Benji knows '+ data.languages[0]);
-      t.ok(data.current === 'Web Developer at Founders and Coders', 'Benji works at Founders & Coders C.I.C.');
+      t.ok(data.current === 'Software Engineer at Arcadia Group Ltd', 'Benji works at Arcadia Group Ltd');
       t.end();
     })
   })
@@ -45,7 +45,7 @@ test('Parse Simon\'s Public Profile Page', function(t) {
       t.ok(data.connections > 68, 'Simon has: '+data.connections + ' connections');
       t.ok(data.fullname === 'Simon Labondance', 'Fullname: '+data.fullname);
       t.ok(data.location === 'London, Greater London, United Kingdom', 'Location: '+data.location)
-      t.ok(data.current === 'Web Developer', 'Current Work: '+data.current);
+      t.ok(data.current === 'Full stack Javascript developer at DWYL', 'Current Work: '+data.current);
       t.ok(data.picture.indexOf('.jpg') > -1, 'Profile Picture: '+data.picture);
       t.ok(data.languages[2].indexOf('Espagnol') > -1, 'Simon knows '+ data.languages[2]);
       t.end();
@@ -93,7 +93,7 @@ test('Parse Nelson\'s Public Profile Page', function(t) {
       t.ok(data.skills.indexOf('Node.js') > -1, 'Nelson knows Node');
       t.ok(data.languages.length > 5, 'Nelson knows '+ data.languages[5]);
       t.ok(data.languages[4].indexOf('Afrikaans') > -1, 'Nelson knows '+ data.languages[4]);
-      t.ok(data.current === 'Code Whisperer', 'Nelson works at Founders & Coders, Q');
+      t.ok(data.current === 'Information Architect', 'Nelson works at Founders & Coders, Q');
       t.end();
     })
   })
@@ -104,7 +104,7 @@ test('Parse Ines\' Public Profile Page', function(t) {
   fs.readFile(file, function(err, html) {
     var url = 'https://www.linkedin.com/in/iteles';
     profile(url, html, function(err, data){
-      console.log(JSON.stringify(data, null, 2));
+      //console.log(JSON.stringify(data, null, 2));
       t.ok(data.connections === 500, 'Ines has: '+data.connections + ' connections');
       t.ok(data.skills.length > 10, 'Skills: '+data.skills.length);
       t.ok(data.skills.indexOf('Node.js') > -1, 'Ines knows Node');
@@ -121,7 +121,7 @@ test('Parse Ines\' Public Profile Page', function(t) {
       // console.log(first);
       t.ok(first.org === 'Agua Montanha Lazer', 'Ines\'s First Job was at: '+first.org)
       t.ok(first.date.indexOf('June 2000') > -1, 'First Job Date: '+first.date);
-      t.ok(data.current.indexOf('Technology Project Manager') > -1, 'Ines current: '+ data.current);
+      t.ok(data.current.indexOf('Co-founder of DWYL, Organiser of Ladies of Code meetup') > -1, 'Ines current: '+ data.current);
       //  console.log(data.experience.past[count-1]);
     //   console.log(JSON.stringify(data, null, 2));
       t.end();
