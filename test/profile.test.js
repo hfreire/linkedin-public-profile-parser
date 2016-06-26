@@ -61,8 +61,8 @@ test('Parse Abdi\'s Public Profile Page', function(t) {
     profile(url, html, function(err, data){
 console.log(data);
       t.ok(data.connections > 36, 'Abdi has: '+data.connections + ' connections');
-      t.ok(data.summary.indexOf('University of Greenwich') > -1, 'Summary contains "teacher"');
-      t.ok(data.languages[1] === 'Arabic - Native or bilingual proficiency', 'Abdi speaks Arabic!');
+      t.ok(data.summary.indexOf('I\'m a technology junkie') > -1, 'Summary contains "technology junkie"');
+      t.ok(data.languages[1] === 'Arabic', 'Knows Arabic!');
       t.end();
     })
   })

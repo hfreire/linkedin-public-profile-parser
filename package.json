@@ -31,8 +31,10 @@
     "node": ">= 0.12"
   },
   "dependencies": {
+    "bluebird": "^3.4.1",
     "cheerio": "^0.20.0",
     "linkedin-canonical-url": "^1.0.5",
+    "lodash": "^4.13.1",
     "wreck": "^7.0.0"
   },
   "devDependencies": {

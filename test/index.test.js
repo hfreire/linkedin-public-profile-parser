@@ -15,7 +15,7 @@ test('Force url error by not setting a url', function(t){
 test('Force 404 error by supplying a mal-formed url', function(t){
 	var url = 'https://uk.linkedin.com/in/simonlabondwrong';
 	lp(url, function(err, data){
-    t.ok(parseInt(err) === 404, 'Instant 404 Error when url not set');
+    t.ok(parseInt(err.message) === 404, 'Instant 404 Error when url not set');
 	  t.ok(data.url === 'https://uk.linkedin.com/in/simonlabondwrong', 'Return the mal-formed url');
 		t.end();
 	})
@@ -29,7 +29,7 @@ test('Return an error if something wrong happen while parsing profile', function
 						.get('/in/simonlabond')
 						.reply(403,'something awful happened');
 	lp(url, function(err, data){
-    t.ok(err === 'error fetcher', 'Return error fetcher');
+    t.ok(err.message === 'error fetcher', 'Return error fetcher');
 		t.end();
 	})
 })
@@ -42,7 +42,7 @@ test('Return an error if something wrong happen while parsing company', function
 		.get('/compan/apple')
 		.reply(403, 'something awful happened');
 	company(url, function (err, data) {
-		t.ok(err === 'error fetcher', 'Return error fetcher');
+		t.ok(err.message === 'error fetcher', 'Return error fetcher');
 		t.end();
 	})
 })

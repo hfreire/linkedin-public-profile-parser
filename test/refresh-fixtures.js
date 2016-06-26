@@ -1,49 +1,34 @@
-var fs      = require('fs');
-var Wreck   = require('wreck');
-var transform_linkedin_url = require('linkedin-canonical-url');
-var agent   = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; de; rv:1.9.2.3) Gecko/20100401 Firefox/3.6.3';
-var wreck   = Wreck.defaults({
-    headers: { 'User-Agent': agent }
-});
-var cheerio = require('cheerio');
-var urls    = [
-  'https://www.linkedin.com/pub/abdi-ahmed/100/384/6b0', // Abdi
-  'https://www.linkedin.com/in/emusk',                   // Elon
-  'https://uk.linkedin.com/in/simonlab',                 // Simon
-  'https://uk.linkedin.com/in/iteles',                   // Inês
-  'https://www.linkedin.com/in/nelsonic',                // This Guy
-  'https://uk.linkedin.com/pub/z%C3%BCmra-kinali/2b/731/b5b', // empty profile
-  'https://uk.linkedin.com/pub/benjamin-lees/58/75/162',  //benji
-  'https://www.linkedin.com/company/keybroker-ab',        // Keybroker company page
-  'https://www.linkedin.com/company/apple',               // Apple company page
-  'https://www.linkedin.com/company/monsanto'            // Monsanto company page
-];
-var files   = [
-  'abdi-ahmed.html',
-  'emusk.html',
-  'simonlab.html',
-  'iteles.html',
-  'nelsonic.html',
-  'zumra.html', // random person with empty profile. test failure.
-  'benji.html',
-  'keybroker.html',
-  'apple.html',
-  'monsanto.html'
-];
+var fs = require('fs');
+var _ = require('lodash');
+var Promise = require('bluebird');
 
+var transform_linkedin_url = require('linkedin-canonical-url');
 var fetcher = require('../lib/fetcher');
 
-function req (index) {
-  var url = transform_linkedin_url(urls[index]); // transform the url!
-  var file = __dirname + '/fixtures/' + files[index];
-  fetcher(url, function(err, url, html){
-    // console.log(err, url)
-    fs.writeFile(file, html.toString(), function(err, data){
-      console.log(url, ' ✓');
-    })
-  })
-}
+var urls = {
+  'https://www.linkedin.com/pub/abdi-ahmed/100/384/6b0': 'abdi-ahmed.html',
+  'https://www.linkedin.com/in/emusk': 'emusk.html',
+  'https://uk.linkedin.com/in/simonlab': 'simonlab.html',
+  'https://uk.linkedin.com/in/iteles': 'iteles.html',
+  'https://www.linkedin.com/in/nelsonic': 'nelsonic.html',
+  'https://uk.linkedin.com/pub/z%C3%BCmra-kinali/2b/731/b5b': 'zumra.html',
+  'https://uk.linkedin.com/pub/benjamin-lees/58/75/162': 'benji.html',
+  'https://www.linkedin.com/company/keybroker-ab': 'keybroker.html',
+  'https://www.linkedin.com/company/apple': 'apple.html',
+  'https://www.linkedin.com/company/monsanto': 'monsanto.html'
+};
 
-for(var i = 0; i < urls.length; i++) {
-  req(i);
-}
+Promise.mapSeries(_.keys(urls), function(url) {
+  var _url = transform_linkedin_url(url);
+  var _file = __dirname + '/fixtures/' + urls[url];
+
+  return fetcher(_url)
+      .then(function(html) {
+        fs.writeFile(_file, html.toString(), function(){
+          console.log(_url, ' ✓');
+        })
+      })
+      .catch(function (error) {
+        console.error(error);
+      })
+});
