@@ -8,7 +8,9 @@
     "fast": "./node_modules/tape/bin/tape ./test/*test.js",
     "full": "node ./test/refresh-fixtures.js && npm test",
     "test": "./node_modules/.bin/istanbul cover ./node_modules/tape/bin/tape ./test/*test.js && istanbul check-coverage --statements 100 --functions 100 --lines 100 --branches 50",
-    "jshint": "jshint -c .jshintrc --exclude-path .gitignore ."
+    "jshint": "jshint -c .jshintrc --exclude-path .gitignore .",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -35,7 +37,8 @@
     "cheerio": "^0.20.0",
     "linkedin-canonical-url": "^1.0.5",
     "lodash": "^4.13.1",
-    "wreck": "^7.0.0"
+    "wreck": "^7.0.0",
+    "snyk": "^1.316.1"
   },
   "devDependencies": {
     "istanbul": "^0.4.2",
@@ -47,5 +50,6 @@
   "pre-commit": [
     "jshint",
     "test"
-  ]
+  ],
+  "snyk": true
 }
